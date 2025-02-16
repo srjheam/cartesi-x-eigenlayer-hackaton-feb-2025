@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import useContractStore from "@/stores/contractStore";
+import useDashboardStore from "@/stores/dashboard-store";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const SettingsForm = () => {
-  const { address, currentClientCodename } = useContractStore();
+  const { address, currentClientCodename } = useDashboardStore();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
   const { setTheme } = useTheme();
@@ -36,7 +36,7 @@ const SettingsForm = () => {
 
     try {
       // Update contract store
-      useContractStore.setState({
+      useDashboardStore.setState({
         address: formData
           .get("contractAddress")
           ?.toString()
@@ -44,7 +44,7 @@ const SettingsForm = () => {
         currentClientCodename: formData.get("codename")?.toString() || null,
       });
 
-      console.log("Settings updated", useContractStore.getState());
+      console.log("Settings updated", useDashboardStore.getState());
 
       //window.location.reload();
 
@@ -70,9 +70,7 @@ const SettingsForm = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Settings</DialogTitle>
-        <DialogDescription>
-          Update your settings.
-        </DialogDescription>
+        <DialogDescription>Update your settings.</DialogDescription>
         <div className="p-4">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
@@ -91,7 +89,9 @@ const SettingsForm = () => {
             <div className="space-y-2">
               <Label htmlFor="codename">
                 Your Codename
-                <p className="text-sm text-muted-foreground">It will be hidden from the voting list</p>
+                <p className="text-sm text-muted-foreground">
+                  It will be hidden from the voting list
+                </p>
               </Label>
               <Input
                 id="codename"
@@ -102,7 +102,9 @@ const SettingsForm = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="theme" className="w-full block">Theme</Label>
+              <Label htmlFor="theme" className="w-full block">
+                Theme
+              </Label>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="icon">
