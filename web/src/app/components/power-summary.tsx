@@ -1,3 +1,5 @@
+"use client";
+
 import { DeviceRead } from "@/types/device-read";
 
 interface PowerSummaryProps {

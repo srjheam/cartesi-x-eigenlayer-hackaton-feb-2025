@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DatePickerWithPresets } from "@/app/components/date-picker-with-presets";
-import { UserNav } from "@/app/components/user-nav";
 import { PowerKindPicker } from "@/app/components/power-kind-picker";
 import { DeviceNav } from "@/app/components/device-nav";
 import { DeviceRead } from "@/types/device-read";
@@ -11,6 +10,12 @@ import useDeviceStore from "@/stores/device-store";
 import useDashboardStore from "@/stores/dashboard-store";
 import { PowerSummary } from "@/app/components/power-summary";
 import { PowerOverview } from "@/app/components/power-overview";
+import dynamic from "next/dynamic";
+
+const UserNav = dynamic(() => import("../components/user-nav"), {
+  ssr: false,
+  loading: () => <div>Loading UserNav...</div>,
+})
 
 export default function DashboardPage() {
   const { device } = useDeviceStore();
