@@ -11,8 +11,8 @@ import { PowerSummary } from "@/app/components/power-summary";
 import { PowerOverview } from "@/app/components/power-overview";
 import dynamic from "next/dynamic";
 import { useAccount, usePublicClient } from "wagmi";
-import { classifierCallerAbi } from "@/generated";
-import { getContract } from "viem";
+//import { classifierCallerAbi } from "@/generated";
+//import { getContract } from "viem";
 
 const UserNav = dynamic(() => import("../components/user-nav"), {
   ssr: false,
@@ -26,30 +26,58 @@ const DeviceNav = dynamic(() => import("../components/device-nav"), {
 
 export default function DashboardPage() {
   const { isConnected, address } = useAccount();
-  
+
   const { device } = useDeviceStore();
   const { date } = useDashboardStore();
   const [deviceReads, setDeviceReads] = useState([] as DeviceRead[]);
-  
+
   const client = usePublicClient();
 
   useEffect(() => {
     const fetchReads = async () => {
-      const contract = getContract({
-        client,
-        address: process.env.NEXT_PUBLIC_CLASSIFIER_CALLER_CONTRACT_ADDRESS as `0x${string}`,
-        abi: classifierCallerAbi,
-      });
-    
-      const reads = await contract.read.getDeviceCurrentData(
-        [address!, BigInt(device!.id)],
-        {}
-      );
-    
-      return reads.map((read) => ({
-        timestamp: Number(read.timestamp),
-        amps: Number(read.current) / 100,
-      }));
+      //const contract = getContract({
+      //  client,
+      //  address: process.env
+      //    .NEXT_PUBLIC_CLASSIFIER_CALLER_CONTRACT_ADDRESS as `0x${string}`,
+      //  abi: classifierCallerAbi,
+      //});
+      //
+      //const reads = await contract.read.getDeviceCurrentData(
+      //  [address!, BigInt(device!.id)],
+      //  {}
+      //);
+      //
+      //return reads.map((read) => ({
+      //  timestamp: Number(read.timestamp),
+      //  amps: Number(read.current) / 100,
+      //}));
+
+      return [
+        { timestamp: Date.now() - 3600000 * 24, amps: 4.2 },
+        { timestamp: Date.now() - 3600000 * 23, amps: 3.8 },
+        { timestamp: Date.now() - 3600000 * 22, amps: 5.1 },
+        { timestamp: Date.now() - 3600000 * 21, amps: 6.3 },
+        { timestamp: Date.now() - 3600000 * 20, amps: 7.2 },
+        { timestamp: Date.now() - 3600000 * 19, amps: 8.5 },
+        { timestamp: Date.now() - 3600000 * 18, amps: 9.1 },
+        { timestamp: Date.now() - 3600000 * 17, amps: 8.7 },
+        { timestamp: Date.now() - 3600000 * 16, amps: 7.9 },
+        { timestamp: Date.now() - 3600000 * 15, amps: 6.8 },
+        { timestamp: Date.now() - 3600000 * 14, amps: 5.5 },
+        { timestamp: Date.now() - 3600000 * 13, amps: 4.9 },
+        { timestamp: Date.now() - 3600000 * 12, amps: 4.2 },
+        { timestamp: Date.now() - 3600000 * 11, amps: 3.6 },
+        { timestamp: Date.now() - 3600000 * 10, amps: 3.1 },
+        { timestamp: Date.now() - 3600000 * 9, amps: 2.8 },
+        { timestamp: Date.now() - 3600000 * 8, amps: 2.5 },
+        { timestamp: Date.now() - 3600000 * 7, amps: 2.9 },
+        { timestamp: Date.now() - 3600000 * 6, amps: 3.4 },
+        { timestamp: Date.now() - 3600000 * 5, amps: 4.1 },
+        { timestamp: Date.now() - 3600000 * 4, amps: 4.8 },
+        { timestamp: Date.now() - 3600000 * 3, amps: 5.3 },
+        { timestamp: Date.now() - 3600000 * 2, amps: 5.7 },
+        { timestamp: Date.now() - 3600000, amps: 5.9 },
+      ];
     };
 
     if (!isConnected || !device) return;
@@ -58,41 +86,12 @@ export default function DashboardPage() {
       const endTimestamp = new Date(date);
       endTimestamp.setHours(23, 59, 59, 999);
 
-      fetchReads()
-        .then(setDeviceReads);
+      fetchReads().then(setDeviceReads);
     } catch (error) {
       console.error("Error fetching device reads:", error);
       // Handle error state
       setDeviceReads([]);
     }
-
-    //const mockDeviceReads: DeviceRead[] = [
-    //  { timestamp: Date.now() - 3600000 * 24, amps: 4.2 },
-    //  { timestamp: Date.now() - 3600000 * 23, amps: 3.8 },
-    //  { timestamp: Date.now() - 3600000 * 22, amps: 5.1 },
-    //  { timestamp: Date.now() - 3600000 * 21, amps: 6.3 },
-    //  { timestamp: Date.now() - 3600000 * 20, amps: 7.2 },
-    //  { timestamp: Date.now() - 3600000 * 19, amps: 8.5 },
-    //  { timestamp: Date.now() - 3600000 * 18, amps: 9.1 },
-    //  { timestamp: Date.now() - 3600000 * 17, amps: 8.7 },
-    //  { timestamp: Date.now() - 3600000 * 16, amps: 7.9 },
-    //  { timestamp: Date.now() - 3600000 * 15, amps: 6.8 },
-    //  { timestamp: Date.now() - 3600000 * 14, amps: 5.5 },
-    //  { timestamp: Date.now() - 3600000 * 13, amps: 4.9 },
-    //  { timestamp: Date.now() - 3600000 * 12, amps: 4.2 },
-    //  { timestamp: Date.now() - 3600000 * 11, amps: 3.6 },
-    //  { timestamp: Date.now() - 3600000 * 10, amps: 3.1 },
-    //  { timestamp: Date.now() - 3600000 * 9, amps: 2.8 },
-    //  { timestamp: Date.now() - 3600000 * 8, amps: 2.5 },
-    //  { timestamp: Date.now() - 3600000 * 7, amps: 2.9 },
-    //  { timestamp: Date.now() - 3600000 * 6, amps: 3.4 },
-    //  { timestamp: Date.now() - 3600000 * 5, amps: 4.1 },
-    //  { timestamp: Date.now() - 3600000 * 4, amps: 4.8 },
-    //  { timestamp: Date.now() - 3600000 * 3, amps: 5.3 },
-    //  { timestamp: Date.now() - 3600000 * 2, amps: 5.7 },
-    //  { timestamp: Date.now() - 3600000, amps: 5.9 },
-    //];
-    //setDeviceReads(mockDeviceReads);
   }, [isConnected, device, date, client, address]);
 
   return (

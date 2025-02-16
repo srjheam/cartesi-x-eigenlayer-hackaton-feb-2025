@@ -11,8 +11,8 @@ import useDeviceStore from "@/stores/device-store";
 import { useEffect, useState } from "react";
 import { Device } from "@/types/device";
 import { useAccount, usePublicClient } from "wagmi";
-import { getContract } from "viem";
-import { classifierCallerAbi } from "@/generated";
+//import { getContract } from "viem";
+//import { classifierCallerAbi } from "@/generated";
 
 const DeviceNav = () => {
   const { isConnected, address } = useAccount();
@@ -24,34 +24,25 @@ const DeviceNav = () => {
 
   useEffect(() => {
     const fetchDevices = async () => {
-      const contract = getContract({
-        client,
-        address: process.env
-          .NEXT_PUBLIC_CLASSIFIER_CALLER_CONTRACT_ADDRESS as `0x${string}`,
-        abi: classifierCallerAbi,
-      });
+      //const contract = getContract({
+      //  client,
+      //  address: process.env
+      //    .NEXT_PUBLIC_CLASSIFIER_CALLER_CONTRACT_ADDRESS as `0x${string}`,
+      //  abi: classifierCallerAbi,
+      //});
+      //
+      //const devices = await contract.read.getDevices([address!], {});
+      //
+      //return devices.map((device) => ({
+      //  id: Number(device.id),
+      //  name: device.name,
+      //}));
 
-      const devices = await contract.read.getDevices([address!], {});
-
-      return devices.map((device) => ({
-        id: Number(device.id),
-        name: device.name,
-      }));
-
-      //return [
-      //  {
-      //    id: 1,
-      //    name: "Device 1",
-      //  },
-      //  {
-      //    id: 2,
-      //    name: "Device 2",
-      //  },
-      //  {
-      //    id: 3,
-      //    name: "Device 3",
-      //  },
-      //];
+      return [
+        { id: 1, name: "Device 1" },
+        { id: 2, name: "Device 2" },
+        { id: 3, name: "Device 3" },
+      ];
     };
 
     if (!isConnected) return;
