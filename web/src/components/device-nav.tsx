@@ -55,17 +55,18 @@ const DeviceNav = () => {
   }, [address, client, device, isConnected]);
 
   return (
-    <Select disabled={!isConnected}>
+    <Select
+      disabled={!isConnected}
+      onValueChange={(id) =>
+        setDevice(devices.find((d) => d.id.toString() === id)!)
+      }
+    >
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={device ? device.name : "Select device"} />
       </SelectTrigger>
       <SelectContent>
         {devices.map((device) => (
-          <SelectItem
-            key={device.id}
-            value={device.id.toString()}
-            onClick={() => setDevice(device)}
-          >
+          <SelectItem key={device.id} value={device.id.toString()}>
             {device.name}
           </SelectItem>
         ))}
