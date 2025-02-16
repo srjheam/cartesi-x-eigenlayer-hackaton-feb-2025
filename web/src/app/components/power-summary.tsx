@@ -21,12 +21,12 @@ export function PowerSummary({ deviceReads }: PowerSummaryProps) {
           <div className="text-2xl font-bold">{maxAmps.toFixed(2)} A</div>
         </div>
         <div className="space-y-2">
-          <div className="text-sm text-muted-foreground">Minimum</div>
-          <div className="text-2xl font-bold">{minAmps.toFixed(2)} A</div>
-        </div>
-        <div className="space-y-2">
           <div className="text-sm text-muted-foreground">Average</div>
           <div className="text-2xl font-bold">{avgAmps.toFixed(2)} A</div>
+        </div>
+        <div className="space-y-2">
+          <div className="text-sm text-muted-foreground">Minimum</div>
+          <div className="text-2xl font-bold">{minAmps.toFixed(2)} A</div>
         </div>
       </div>)
       : (
