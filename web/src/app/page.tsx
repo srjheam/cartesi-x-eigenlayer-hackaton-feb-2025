@@ -28,14 +28,7 @@ export default function DashboardPage() {
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
               <DatePickerWithPresets />
-              <Select onValueChange={(value) => console.log(value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Device" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="0">Ferro elétrico</SelectItem>
-                </SelectContent>
-              </Select>
+              <
             </div>
           </div>
           <div className="space-y-4">
