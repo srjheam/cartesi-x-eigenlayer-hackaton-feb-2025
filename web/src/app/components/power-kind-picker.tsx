@@ -7,17 +7,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import useDashboardStore from "@/stores/dashboard-store";
 
 export const PowerKindPicker = () => {
+  const { powerKind, setPowerKind } = useDashboardStore();
+
   return (
-    <Select onValueChange={(value) => console.log(value)}>
+    <Select onValueChange={setPowerKind} value={powerKind}>
       <SelectTrigger>
         <SelectValue placeholder="Power" />
       </SelectTrigger>
       <SelectContent position="popper">
-        <SelectItem value="0">Active Power</SelectItem>
-        <SelectItem value="1">Reactive Power</SelectItem>
-        <SelectItem value="2">Apparent Power</SelectItem>
+        <SelectItem value="active">Active Power</SelectItem>
+        <SelectItem value="reactive">Reactive Power</SelectItem>
+        <SelectItem value="apparent">Apparent Power</SelectItem>
       </SelectContent>
     </Select>
   );

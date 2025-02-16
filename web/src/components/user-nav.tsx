@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -37,90 +38,91 @@ export default function UserNav() {
   const { data: ensAvatar } = useEnsAvatar({ name: ensName! });
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 rounded-full">
-          {!address && (
-            <p className="text-xs font-medium leading-none text-muted-foreground">
-              Not connected
-            </p>
-          )}
-          <Avatar className="h-8 w-8">
-            {ensAvatar && <AvatarImage src={ensAvatar} alt="ENS avatar" />}
-            <AvatarFallback>SC</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <Dialog open={showDialog} onOpenChange={setShowDialog}>
-            <DialogTrigger asChild>
-              <div className="flex flex-col space-y-1">
-                {address ? (
-                  <>
-                    <p className="text-sm font-medium leading-none">
-                      {ensName ?? "<unknown-ens-name>"}
-                    </p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {address}
-                    </p>
-                  </>
-                ) : (
+    <Dialog open={showDialog} onOpenChange={setShowDialog}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-8 rounded-full">
+            {!address && (
+              <p className="text-xs font-medium leading-none text-muted-foreground">
+                Not connected
+              </p>
+            )}
+            <Avatar className="h-8 w-8">
+              {ensAvatar && <AvatarImage src={ensAvatar} alt="ENS avatar" />}
+              <AvatarFallback>SC</AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuItem className="font-normal" onClick={() => setShowDialog(true)}>
+            <div className="flex flex-col space-y-1">
+              {address ? (
+                <>
                   <p className="text-sm font-medium leading-none">
-                    Not connected
+                    {ensName ?? "<unknown-ens-name>"}
                   </p>
-                )}
-              </div>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Settings</DialogTitle>
-              </DialogHeader>
-              <div className="p-4 space-y-4">
-                <WalletOptions />
-
-                <div className="space-y-2">
-                  <Label htmlFor="theme" className="w-full block">
-                    Theme
-                  </Label>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="icon">
-                        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                        <span className="sr-only">Toggle theme</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => setTheme("light")}>
-                        Light
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("dark")}>
-                        Dark
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme("system")}>
-                        System
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => setShowDialog(true)}>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {address}
+                  </p>
+                </>
+              ) : (
+                <p className="text-sm font-medium leading-none">
+                  Not connected
+                </p>
+              )}
+            </div>
           </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => disconnect()}>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={() => setShowDialog(true)}>
+              Settings
+              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => disconnect()}>
+            Log out
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Settings</DialogTitle>
+          <DialogDescription>
+            Manage your wallet settings and preferences.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="p-4 space-y-4">
+          <WalletOptions />
+
+          <div className="space-y-2">
+            <Label htmlFor="theme" className="w-full block">
+              Theme
+            </Label>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setTheme("light")}>
+                  Light
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                  Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("system")}>
+                  System
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

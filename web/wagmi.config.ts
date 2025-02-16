@@ -14,7 +14,6 @@ export default defineConfig(() => {
       contracts: [
         {
           abi: classifierCallerAbi,
-          address: env.NEXT_PUBLIC_COPROCESSOR_CALLER_ADDRESS as `0x${string}`,
           name: "ClassifierCaller",
         },
       ],
@@ -29,7 +28,12 @@ export default defineConfig(() => {
     return {
       // production specific config
       out: "src/generated.ts",
-      contracts: [],
+      contracts: [
+        {
+          abi: classifierCallerAbi,
+          name: "ClassifierCaller",
+        },
+      ],
       plugins: [],
     };
   }

@@ -16,13 +16,18 @@ export default function Providers(props: {
 }) {
   const [mounted, setMounted] = useState(false);
 
-
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return <>{props.children}</>; // Render children without ThemeProvider during SSR
+    return (
+      <WagmiProvider config={config} initialState={props.initialState}>
+        <QueryClientProvider client={queryClient}>
+          {props.children}
+        </QueryClientProvider>
+      </WagmiProvider>
+    ); // Render children without ThemeProvider during SSR
   }
 
   return (

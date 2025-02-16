@@ -14,6 +14,7 @@ export function PowerSummary({ deviceReads }: PowerSummaryProps) {
 
   return (
     <div className="space-y-4">
+      {deviceReads.length > 0 ? (
       <div className="grid grid-cols-1 gap-4">
         <div className="space-y-2">
           <div className="text-sm text-muted-foreground">Maximum</div>
@@ -27,7 +28,10 @@ export function PowerSummary({ deviceReads }: PowerSummaryProps) {
           <div className="text-sm text-muted-foreground">Average</div>
           <div className="text-2xl font-bold">{avgAmps.toFixed(2)} A</div>
         </div>
-      </div>
+      </div>)
+      : (
+        <div className="text-muted-foreground">No data available</div>
+      )}
     </div>
   );
 }
