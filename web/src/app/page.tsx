@@ -77,7 +77,7 @@ export default function DashboardPage() {
           </div>
           <div className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-4">
+              <Card className="col-span-5">
                 <CardHeader>
                   <CardTitle>Power Overview</CardTitle>
                 </CardHeader>
@@ -85,8 +85,8 @@ export default function DashboardPage() {
                   <PowerOverview deviceReads={deviceReads} />
                 </CardContent>
               </Card>
-              <Card className="col-span-3">
-                <CardContent>
+              <Card className="col-span-2">
+                <CardContent className="flex items-center h-full">
                   <PowerSummary deviceReads={deviceReads} />
                 </CardContent>
               </Card>
