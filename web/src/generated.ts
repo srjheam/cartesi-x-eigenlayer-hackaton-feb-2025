@@ -66,7 +66,7 @@ export const classifierCallerAbi = [
     ],
     name: 'deviceData',
     outputs: [
-      { name: 'current', internalType: 'uint256', type: 'uint256' },
+      { name: 'current', internalType: 'int256', type: 'int256' },
       { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
     ],
     stateMutability: 'view',
@@ -75,7 +75,7 @@ export const classifierCallerAbi = [
     type: 'function',
     inputs: [
       { name: 'user', internalType: 'address', type: 'address' },
-      { name: 'id', internalType: 'uint256', type: 'uint256' },
+      { name: 'id', internalType: 'int256', type: 'int256' },
     ],
     name: 'getDeviceCurrentData',
     outputs: [
@@ -84,7 +84,7 @@ export const classifierCallerAbi = [
         internalType: 'struct ClassifierCaller.DeviceReportView[]',
         type: 'tuple[]',
         components: [
-          { name: 'current', internalType: 'uint256', type: 'uint256' },
+          { name: 'current', internalType: 'int256', type: 'int256' },
           { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
         ],
       },
@@ -102,7 +102,7 @@ export const classifierCallerAbi = [
         type: 'tuple[]',
         components: [
           { name: 'name', internalType: 'string', type: 'string' },
-          { name: 'id', internalType: 'uint256', type: 'uint256' },
+          { name: 'id', internalType: 'int256', type: 'int256' },
         ],
       },
     ],
@@ -179,7 +179,7 @@ export const classifierCallerAbi = [
   {
     type: 'function',
     inputs: [
-      { name: 'current', internalType: 'uint256', type: 'uint256' },
+      { name: 'current', internalType: 'int256', type: 'int256' },
       { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'sendData',

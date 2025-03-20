@@ -1,5 +1,5 @@
 import { http, cookieStorage, createConfig, createStorage } from "wagmi";
-import { holesky, anvil } from "wagmi/chains";
+import { holesky, anvil, hardhat } from "wagmi/chains";
 import {
   coinbaseWallet,
   injected,
@@ -8,7 +8,7 @@ import {
 
 export function getConfig() {
   return createConfig({
-    chains: [holesky, anvil],
+    chains: [hardhat],
     connectors: [
       injected(),
       coinbaseWallet(),
@@ -24,8 +24,7 @@ export function getConfig() {
     syncConnectedChain: true,
     ssr: true,
     transports: {
-      [holesky.id]: http(),
-      [anvil.id]: http(),
+      [hardhat.id]: http(),
     },
   });
 }
